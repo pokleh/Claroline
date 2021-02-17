@@ -197,6 +197,7 @@ class RoleSerializer
                 ->findOneBy(['uuid' => $data['workspace']['id']]);
 
             if (!$role->getName()) {
+                // TODO : should be done in WorkspaceCrud
                 $role->setName('ROLE_WS_'.str_replace(' ', '_', strtoupper($data['translationKey'])).'_'.$data['workspace']['id']);
             }
 

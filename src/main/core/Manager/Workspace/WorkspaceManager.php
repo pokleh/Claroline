@@ -676,14 +676,12 @@ class WorkspaceManager implements LoggerAwareInterface
         $this->om->flush();
     }
 
-    public function getShortcuts(Workspace $workspace, User $user = null)
+    public function getShortcuts(Workspace $workspace, array $roleNames)
     {
         $shortcuts = [];
-        if ($user) {
-            foreach ($workspace->getShortcuts() as $shortcut) {
-                if ($user->hasRole($shortcut->getRole()->getName())) {
-                    $shortcuts = array_merge($shortcuts, $shortcut->getData());
-                }
+        foreach ($workspace->getShortcuts() as $shortcut) {
+            if (in_array($shortcut->getRole()->getName(), $roleNames)) {
+                $shortcuts = array_merge($shortcuts, $shortcut->getData());
             }
         }
 

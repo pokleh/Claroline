@@ -16,7 +16,7 @@ const RolesList = props =>
   <ListData
     name={selectors.LIST_NAME}
     fetch={{
-      url: ['apiv2_workspace_list_roles_configurable', {id: props.workspace.id}],
+      url: ['apiv2_workspace_list_roles_configurable', {workspace: props.workspace.id}],
       autoload: true
     }}
     primaryAction={(row) => ({
@@ -25,7 +25,7 @@ const RolesList = props =>
     })}
     delete={{
       url: ['apiv2_role_delete_bulk'],
-      disabled: rows => !!rows.find(row => row.name && (row.name.indexOf('ROLE_WS_COLLABORATOR_') > -1 || row.name.indexOf('ROLE_WS_MANAGER_') > -1))
+      disabled: rows => !!rows.find(row => constants.ROLE_WORKSPACE !== row.type || (row.name && (row.name.indexOf('ROLE_WS_COLLABORATOR_') > -1 || row.name.indexOf('ROLE_WS_MANAGER_') > -1)))
     }}
     definition={[
       {
